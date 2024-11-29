@@ -18,6 +18,18 @@ public class TaskDto {
 
     private LocalDateTime closedAt;
 
+    public TaskDto() {
+        //default
+    }
+
+    public TaskDto(String title, String description, String creator, String assignee) {
+        this.title = title;
+        this.description = description;
+        this.creator = creator;
+        this.assignee = assignee;
+    }
+
+
     public Long getId() {
         return id;
     }
@@ -84,11 +96,13 @@ public class TaskDto {
 
     @Override
     public String toString() {
-        return  "Название задачи='" + title + '\'' +
-                ", описание='" + description + '\'' +
-                ", создатель=" + creator +
-                ", назначен=" + assignee +
-                ", статус=" + statusEnum +
-                '}';
+        return  "\nid задачи: " + id +
+                "\nНазвание задачи: " + title +
+                "\nОписание задачи: " + description +
+                "\nСоздатель: " + creator +
+                "\nНазначен выполнить: " + assignee +
+                "\nСтатус задачи: " + statusEnum +
+                "\nЗадача создана: " + createdAt +
+                "\nЗадача завершена: " + closedAt;
     }
 }

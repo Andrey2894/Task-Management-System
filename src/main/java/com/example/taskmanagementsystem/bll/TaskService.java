@@ -7,6 +7,7 @@ import com.example.taskmanagementsystem.dal.enums.TaskStatusEnum;
 import com.example.taskmanagementsystem.exception.IdNotFoundException;
 import com.example.taskmanagementsystem.exception.TitleIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,8 +20,11 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    public List<TaskDto> listAll() {
-        return taskRepository.findAll().stream().map(TaskMapper::toDto).collect(Collectors.toList());
+    public List<TaskDto> listAll(String sortOrder) {
+        Sort sort = "desc".equalsIgnoreCase(sortOrder)
+                ? Sort.by(Sort.Direction.DESC, "createdAt")
+                : Sort.by(Sort.Direction.ASC, "createdAt");
+        return taskRepository.findAll(sort).stream().map(TaskMapper::toDto).collect(Collectors.toList());
     }
 
     public TaskDto findTaskById(Long id) {
@@ -47,7 +51,7 @@ public class TaskService {
 
     public TaskDto nextTaskStatusById(Long id) {
         Task task = taskRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
-        if (task.getStatusEnum() == TaskStatusEnum.NEW) task.setStatusEnum(TaskStatusEnum.IN_PROGRESS);
+        if(task.getStatusEnum() == TaskStatusEnum.NEW) task.setStatusEnum(TaskStatusEnum.IN_PROGRESS);
         else if (task.getStatusEnum() == TaskStatusEnum.IN_PROGRESS) {
             task.setStatusEnum(TaskStatusEnum.COMPLETED);
             task.setClosedAt(LocalDateTime.now());

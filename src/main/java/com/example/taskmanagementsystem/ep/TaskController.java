@@ -2,7 +2,6 @@ package com.example.taskmanagementsystem.ep;
 
 import com.example.taskmanagementsystem.bll.TaskService;
 import com.example.taskmanagementsystem.ep.dto.TaskDto;
-import com.example.taskmanagementsystem.dal.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -17,8 +16,8 @@ public class TaskController {
     private TaskService service;
 
     @GetMapping
-    public ResponseEntity<List<TaskDto>> listAll() {
-        return ResponseEntity.ok(service.listAll());
+    public ResponseEntity<List<TaskDto>> listAll(@RequestParam(required = false) String sortOrder) {
+        return ResponseEntity.ok(service.listAll(sortOrder));
     }
 
     @GetMapping("/{id}")

@@ -26,9 +26,9 @@ public class TaskMapper {
     }
 
     public static void applyChanges(Task task, TaskDto taskDto) {
-        if (taskDto.getTitle() != null) task.setTitle(taskDto.getTitle());
-        if (taskDto.getDescription() != null) task.setDescription(taskDto.getDescription());
-        if (taskDto.getCreator() != null) task.setCreator(taskDto.getCreator());
-        if (taskDto.getAssignee() != null) task.setAssignee(taskDto.getAssignee());
+        if(taskDto.getTitle() != null) task.setTitle(taskDto.getTitle());
+        if(taskDto.getDescription() != null) task.setDescription(taskDto.getDescription());
+        if(taskDto.getCreator() != null) task.setCreator(taskDto.getCreator());
+        if(taskDto.getAssignee() != null) task.setAssignee(taskDto.getAssignee());
     }
 }
