@@ -1,6 +1,6 @@
-package com.example.taskmanagementsystem.ep.controllers;
+package com.example.taskmanagementsystem.ep.controller;
 
-import com.example.taskmanagementsystem.bll.TaskService;
+import com.example.taskmanagementsystem.bll.service.TaskService;
 import com.example.taskmanagementsystem.ep.dto.TaskDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskDto> addTask(@RequestBody @NonNull TaskDto task) {
+    public ResponseEntity<TaskDto> createTask(@RequestBody @NonNull TaskDto task) {
         return ResponseEntity.ok(service.createTask(task));
     }
 

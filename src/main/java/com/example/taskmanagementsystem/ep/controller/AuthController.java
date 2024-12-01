@@ -1,6 +1,6 @@
-package com.example.taskmanagementsystem.ep.controllers;
+package com.example.taskmanagementsystem.ep.controller;
 
-import com.example.taskmanagementsystem.bll.UserService;
+import com.example.taskmanagementsystem.bll.service.UserService;
 import com.example.taskmanagementsystem.ep.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

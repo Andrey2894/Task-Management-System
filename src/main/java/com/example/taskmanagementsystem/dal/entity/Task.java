@@ -15,8 +15,10 @@ public class Task extends BaseIdEntity {
     private TaskStatusEnum statusEnum = TaskStatusEnum.NEW;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime closedAt;
-    private String creator;
-    private String assignee;
+    @ManyToOne
+    private User creator;
+    @ManyToOne
+    private User assignee;
 
     public Task() {
         //default
@@ -46,19 +48,19 @@ public class Task extends BaseIdEntity {
         this.statusEnum = statusEnum;
     }
 
-    public String getCreator() {
+    public User getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
     }
 
-    public String getAssignee() {
+    public User getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(String assignee) {
+    public void setAssignee(User assignee) {
         this.assignee = assignee;
     }
 

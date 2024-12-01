@@ -1,12 +1,13 @@
-package com.example.taskmanagementsystem.bll;
+package com.example.taskmanagementsystem.bll.service;
 
 import com.example.taskmanagementsystem.bll.mappers.TaskMapper;
 import com.example.taskmanagementsystem.dal.dao.TaskRepository;
+import com.example.taskmanagementsystem.dal.dao.UserRepository;
 import com.example.taskmanagementsystem.ep.dto.TaskDto;
 import com.example.taskmanagementsystem.dal.entity.Task;
 import com.example.taskmanagementsystem.dal.enums.TaskStatusEnum;
-import com.example.taskmanagementsystem.exception.IdNotFoundException;
-import com.example.taskmanagementsystem.exception.TitleIsNullException;
+import com.example.taskmanagementsystem.dal.exception.IdNotFoundException;
+import com.example.taskmanagementsystem.dal.exception.TitleIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,23 +21,25 @@ import java.util.stream.Collectors;
 public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private TaskMapper taskMapper;
 
     public List<TaskDto> listAll(String sortOrder) {
         Sort sort = "desc".equalsIgnoreCase(sortOrder)
                 ? Sort.by(Sort.Direction.DESC, "createdAt")
                 : Sort.by(Sort.Direction.ASC, "createdAt");
-        return taskRepository.findAll(sort).stream().map(TaskMapper::toDto).collect(Collectors.toList());
+        return taskRepository.findAll(sort).stream().map(taskMapper::toDto).collect(Collectors.toList());
     }
 
     public TaskDto findTaskById(Long id) {
-        return TaskMapper.toDto(taskRepository.findById(id).orElseThrow(() -> new IdNotFoundException()));
+        return taskMapper.toDto(taskRepository.findById(id).orElseThrow(() -> new IdNotFoundException()));
     }
 
     public TaskDto createTask(TaskDto taskDto) {
         if(!StringUtils.hasLength(taskDto.getTitle())) throw new TitleIsNullException();
-        Task task = TaskMapper.toEntity(taskDto);
+        Task task = taskMapper.toEntity(taskDto);
         taskRepository.save(task);
-        return TaskMapper.toDto(task);
+        return taskMapper.toDto(task);
     }
 
     public void deleteTaskById(Long id) {
@@ -45,9 +48,9 @@ public class TaskService {
 
     public TaskDto updateTaskById(Long id, TaskDto taskDto) {
         Task task = taskRepository.findById(id).orElseThrow(() -> new IdNotFoundException());
-        TaskMapper.applyChanges(task, taskDto);
+        taskMapper.applyChanges(task, taskDto);
         taskRepository.save(task);
-        return TaskMapper.toDto(taskRepository.save(task));
+        return taskMapper.toDto(taskRepository.save(task));
     }
 
     public TaskDto nextTaskStatusById(Long id) {
@@ -58,6 +61,6 @@ public class TaskService {
             task.setClosedAt(LocalDateTime.now());
         }
         taskRepository.save(task);
-        return TaskMapper.toDto(task);
+        return taskMapper.toDto(task);
     }
 }

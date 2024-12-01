@@ -1,20 +1,16 @@
-package com.example.taskmanagementsystem.bll;
+package com.example.taskmanagementsystem.bll.service;
 
-import com.example.taskmanagementsystem.bll.mappers.TaskMapper;
 import com.example.taskmanagementsystem.bll.mappers.UserMapper;
+import com.example.taskmanagementsystem.bll.util.JwtUtil;
 import com.example.taskmanagementsystem.dal.dao.UserRepository;
-import com.example.taskmanagementsystem.dal.entity.Task;
 import com.example.taskmanagementsystem.dal.entity.User;
-import com.example.taskmanagementsystem.ep.dto.TaskDto;
 import com.example.taskmanagementsystem.ep.dto.UserDto;
-import com.example.taskmanagementsystem.exception.PasswordIsNullException;
-import com.example.taskmanagementsystem.exception.TitleIsNullException;
+import com.example.taskmanagementsystem.dal.exception.PasswordIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class UserService {
@@ -42,4 +38,7 @@ public class UserService {
         return jwtUtil.generateToken(userDto.getUsername());
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
 }

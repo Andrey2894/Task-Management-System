@@ -1,9 +1,9 @@
 package com.example.taskmanagementsystem.console;
 
-import com.example.taskmanagementsystem.bll.TaskService;
+import com.example.taskmanagementsystem.bll.service.TaskService;
 import com.example.taskmanagementsystem.ep.dto.TaskDto;
-import com.example.taskmanagementsystem.exception.IdNotFoundException;
-import com.example.taskmanagementsystem.exception.TitleIsNullException;
+import com.example.taskmanagementsystem.dal.exception.IdNotFoundException;
+import com.example.taskmanagementsystem.dal.exception.TitleIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

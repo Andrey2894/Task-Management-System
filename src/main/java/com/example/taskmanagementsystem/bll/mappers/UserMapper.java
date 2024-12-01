@@ -2,7 +2,7 @@ package com.example.taskmanagementsystem.bll.mappers;
 
 import com.example.taskmanagementsystem.dal.entity.User;
 import com.example.taskmanagementsystem.ep.dto.UserDto;
-import com.example.taskmanagementsystem.exception.UsernameIsNullException;
+import com.example.taskmanagementsystem.dal.exception.UsernameIsNullException;
 
 public class UserMapper {
     public static UserDto toDto(User user) {

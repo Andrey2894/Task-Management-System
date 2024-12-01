@@ -1,4 +1,4 @@
-package com.example.taskmanagementsystem.bll;
+package com.example.taskmanagementsystem.bll.util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,10 +11,10 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final String base64EncodedSecretKey = "your-256-bit-secret-your-256-bit-secre"; // Минимум 256 бит
-    private final Key secretKey = Keys.hmacShaKeyFor(base64EncodedSecretKey.getBytes(StandardCharsets.UTF_8));
+    private static final String base64EncodedSecretKey = "your-256-bit-secret-your-256-bit-secre"; // Минимум 256 бит
+    private static final Key secretKey = Keys.hmacShaKeyFor(base64EncodedSecretKey.getBytes(StandardCharsets.UTF_8));
 
-    public String generateToken(String username) {
+    public static String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
@@ -23,7 +23,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String extractUsername(String token) {
+    public static String extractUsername(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
@@ -32,7 +32,7 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    public boolean validateToken(String token) {
+    public static boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
                     .setSigningKey(secretKey)

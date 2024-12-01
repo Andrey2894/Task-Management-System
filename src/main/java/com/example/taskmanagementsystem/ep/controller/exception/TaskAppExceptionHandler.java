@@ -1,12 +1,11 @@
-package com.example.taskmanagementsystem.bll;
+package com.example.taskmanagementsystem.ep.controller.exception;
 
-import com.example.taskmanagementsystem.exception.IdNotFoundException;
-import com.example.taskmanagementsystem.exception.PasswordIsNullException;
-import com.example.taskmanagementsystem.exception.TitleIsNullException;
-import com.example.taskmanagementsystem.exception.UsernameIsNullException;
+import com.example.taskmanagementsystem.dal.exception.IdNotFoundException;
+import com.example.taskmanagementsystem.dal.exception.PasswordIsNullException;
+import com.example.taskmanagementsystem.dal.exception.TitleIsNullException;
+import com.example.taskmanagementsystem.dal.exception.UsernameIsNullException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
