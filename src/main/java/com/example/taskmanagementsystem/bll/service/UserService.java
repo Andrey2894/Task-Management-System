@@ -1,11 +1,12 @@
 package com.example.taskmanagementsystem.bll.service;
 
-import com.example.taskmanagementsystem.bll.mappers.UserMapper;
+import com.example.taskmanagementsystem.bll.mapper.UserMapper;
 import com.example.taskmanagementsystem.bll.util.JwtUtil;
 import com.example.taskmanagementsystem.dal.dao.UserRepository;
 import com.example.taskmanagementsystem.dal.entity.User;
-import com.example.taskmanagementsystem.ep.dto.UserDto;
 import com.example.taskmanagementsystem.dal.exception.PasswordIsNullException;
+import com.example.taskmanagementsystem.dal.exception.UsernameAlreadyExistsException;
+import com.example.taskmanagementsystem.ep.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +27,7 @@ public class UserService {
 
     public void createUser(UserDto userDto) {
         User user = UserMapper.toEntity(userDto);
+        if(userRepository.findByUsername(userDto.getUsername()).isPresent()) throw new UsernameAlreadyExistsException();
         if(userDto.getPassword() != null) user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         else throw new PasswordIsNullException();
         userRepository.save(user);
@@ -40,5 +42,9 @@ public class UserService {
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 }

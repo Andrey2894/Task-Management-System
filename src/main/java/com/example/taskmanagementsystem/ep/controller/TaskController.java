@@ -41,7 +41,7 @@ public class TaskController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("nextStatus/{id}")
+    @PutMapping("/nextStatus/{id}")
     public ResponseEntity<TaskDto> nextTaskStatusById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(service.nextTaskStatusById(id));
     }

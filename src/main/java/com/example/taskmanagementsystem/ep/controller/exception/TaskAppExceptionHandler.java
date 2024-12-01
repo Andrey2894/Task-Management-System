@@ -1,11 +1,9 @@
 package com.example.taskmanagementsystem.ep.controller.exception;
 
-import com.example.taskmanagementsystem.dal.exception.IdNotFoundException;
-import com.example.taskmanagementsystem.dal.exception.PasswordIsNullException;
-import com.example.taskmanagementsystem.dal.exception.TitleIsNullException;
-import com.example.taskmanagementsystem.dal.exception.UsernameIsNullException;
+import com.example.taskmanagementsystem.dal.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -30,6 +28,16 @@ public class TaskAppExceptionHandler {
     @ExceptionHandler(PasswordIsNullException.class)
     protected ResponseEntity<MyException> handlePasswordIsNullException() {
         return new ResponseEntity<>(new MyException("Password can't be empty"), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    protected ResponseEntity<MyException> handleUsernameNotFoundException() {
+        return new ResponseEntity<>(new MyException("Username is not found"), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    protected ResponseEntity<MyException> handleUsernameAlreadyExistsException() {
+        return new ResponseEntity<>(new MyException("Username already exists"), HttpStatus.BAD_REQUEST);
     }
 
     private static class MyException {

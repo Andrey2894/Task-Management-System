@@ -1,4 +1,4 @@
-package com.example.taskmanagementsystem.bll.mappers;
+package com.example.taskmanagementsystem.bll.mapper;
 
 import com.example.taskmanagementsystem.dal.entity.User;
 import com.example.taskmanagementsystem.ep.dto.UserDto;
@@ -12,10 +12,8 @@ public class UserMapper {
     }
     public static User toEntity(UserDto userDto) {
         User user = new User();
-        if(userDto.getUsername() != null) user.setUsername(userDto.getUsername());
-        else throw new UsernameIsNullException();
+        if(userDto.getUsername().isEmpty()) throw new UsernameIsNullException();
+        user.setUsername(userDto.getUsername());
         return user;
     }
-
-
 }

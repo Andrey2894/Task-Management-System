@@ -1,9 +1,8 @@
-package com.example.taskmanagementsystem.bll.mappers;
+package com.example.taskmanagementsystem.bll.mapper;
 
 import com.example.taskmanagementsystem.bll.service.UserService;
-import com.example.taskmanagementsystem.dal.dao.UserRepository;
-import com.example.taskmanagementsystem.ep.dto.TaskDto;
 import com.example.taskmanagementsystem.dal.entity.Task;
+import com.example.taskmanagementsystem.ep.dto.TaskDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +19,8 @@ public class TaskMapper {
         taskDto.setStatusEnum(task.getStatusEnum());
         taskDto.setCreatedAt(task.getCreatedAt());
         taskDto.setClosedAt(task.getClosedAt());
-        taskDto.setCreator(task.getCreator().getUsername());
-        taskDto.setAssignee(task.getAssignee().getUsername());
+        if(task.getCreator() != null) taskDto.setCreator(task.getCreator().getUsername());
+        if(task.getAssignee() != null) taskDto.setAssignee(task.getAssignee().getUsername());
         return taskDto;
     }
 

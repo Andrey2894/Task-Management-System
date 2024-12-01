@@ -1,17 +1,15 @@
 package com.example.taskmanagementsystem.bll.service;
 
-import com.example.taskmanagementsystem.bll.mappers.TaskMapper;
+import com.example.taskmanagementsystem.bll.mapper.TaskMapper;
 import com.example.taskmanagementsystem.dal.dao.TaskRepository;
-import com.example.taskmanagementsystem.dal.dao.UserRepository;
-import com.example.taskmanagementsystem.ep.dto.TaskDto;
 import com.example.taskmanagementsystem.dal.entity.Task;
 import com.example.taskmanagementsystem.dal.enums.TaskStatusEnum;
 import com.example.taskmanagementsystem.dal.exception.IdNotFoundException;
 import com.example.taskmanagementsystem.dal.exception.TitleIsNullException;
+import com.example.taskmanagementsystem.ep.dto.TaskDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,7 +34,7 @@ public class TaskService {
     }
 
     public TaskDto createTask(TaskDto taskDto) {
-        if(!StringUtils.hasLength(taskDto.getTitle())) throw new TitleIsNullException();
+        if(taskDto.getTitle().isEmpty()) throw new TitleIsNullException();
         Task task = taskMapper.toEntity(taskDto);
         taskRepository.save(task);
         return taskMapper.toDto(task);
