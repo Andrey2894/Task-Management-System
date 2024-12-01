@@ -1,11 +1,9 @@
-package com.example.taskmanagementsystem.bll;
+package com.example.taskmanagementsystem.bll.mappers;
 
 import com.example.taskmanagementsystem.ep.dto.TaskDto;
 import com.example.taskmanagementsystem.dal.entity.Task;
 
 public class TaskMapper {
-
-    //из entity в dto
     public static TaskDto toDto(Task task) {
         TaskDto dto = new TaskDto();
         dto.setId(task.getId());
@@ -18,7 +16,7 @@ public class TaskMapper {
         dto.setClosedAt(task.getClosedAt());
         return dto;
     }
-    //из dto в entity
+
     public static Task toEntity(TaskDto taskDto) {
         Task task = new Task();
         applyChanges(task, taskDto);

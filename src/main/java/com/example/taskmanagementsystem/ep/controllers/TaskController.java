@@ -1,4 +1,4 @@
-package com.example.taskmanagementsystem.ep;
+package com.example.taskmanagementsystem.ep.controllers;
 
 import com.example.taskmanagementsystem.bll.TaskService;
 import com.example.taskmanagementsystem.ep.dto.TaskDto;
