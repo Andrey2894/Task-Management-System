@@ -28,8 +28,8 @@ public class UserService {
     public void createUser(UserDto userDto) {
         User user = UserMapper.toEntity(userDto);
         if(userRepository.findByUsername(userDto.getUsername()).isPresent()) throw new UsernameAlreadyExistsException();
-        if(userDto.getPassword() != null) user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        else throw new PasswordIsNullException();
+        if(userDto.getPassword().isEmpty()) throw new PasswordIsNullException();
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(user);
     }
 

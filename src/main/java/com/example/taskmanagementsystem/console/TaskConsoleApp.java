@@ -1,9 +1,10 @@
 package com.example.taskmanagementsystem.console;
 
 import com.example.taskmanagementsystem.bll.service.TaskService;
+import com.example.taskmanagementsystem.bll.service.UserService;
+import com.example.taskmanagementsystem.dal.exception.*;
 import com.example.taskmanagementsystem.ep.dto.TaskDto;
-import com.example.taskmanagementsystem.dal.exception.IdNotFoundException;
-import com.example.taskmanagementsystem.dal.exception.TitleIsNullException;
+import com.example.taskmanagementsystem.ep.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,8 @@ import java.util.Scanner;
 public class TaskConsoleApp {
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private UserService userService;
     public void run() {
 
         Scanner scanner = new Scanner(System.in);
@@ -37,6 +40,12 @@ public class TaskConsoleApp {
                 case "delete_task":
                     deleteTask(scanner);
                     break;
+                case "create_user":
+                    createUser(scanner);
+                break;
+                case "delete_user":
+                    deleteUser(scanner);
+                break;
                 case "next_status_task":
                     nextStatusTask(scanner);
                     break;
@@ -119,6 +128,32 @@ public class TaskConsoleApp {
         }
     }
 
+    private void createUser(Scanner scanner) {
+        System.out.print("Введите username: ");
+        String username = scanner.nextLine();
+        System.out.print("Введите пароль: ");
+        String password = scanner.nextLine();
+
+        UserDto userDto = new UserDto(username,password);
+        try {
+            userService.createUser(userDto);
+            System.out.println("Пользователь успешно зарегистрирован");
+        } catch (UsernameIsNullException exception) {
+            System.out.println("Username не может быть пустым");
+        } catch (UsernameAlreadyExistsException exception) {
+            System.out.println("Такой username уже существует");
+        } catch (PasswordIsNullException exception) {
+            System.out.println("Пароль не может быть пустым");
+        }
+    }
+
+    private void deleteUser(Scanner scanner) {
+        System.out.print("Введите ID пользователя для удаления: ");
+        Long id = Long.parseLong(scanner.nextLine());
+        userService.deleteUserById(id);
+        System.out.println("Пользователь удален.");
+    }
+
     private void printHelp() {
         System.out.println("Доступные команды:");
         System.out.println("  create_task - Создать задачу");
@@ -126,6 +161,8 @@ public class TaskConsoleApp {
         System.out.println("  update_task - Обновить задачу");
         System.out.println("  delete_task - Удалить задачу");
         System.out.println("  next_status_task - Продвинуть статус задачи");
+        System.out.println("  create_user - Создать пользователя");
+        System.out.println("  delete_user - Удалить пользователя");
         System.out.println("  exit - Выход");
     }
 }
