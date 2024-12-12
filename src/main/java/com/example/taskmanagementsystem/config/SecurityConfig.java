@@ -1,6 +1,6 @@
 package com.example.taskmanagementsystem.config;
 
-import com.example.taskmanagementsystem.bll.JwtAuthenticationFilter;
+import com.example.taskmanagementsystem.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

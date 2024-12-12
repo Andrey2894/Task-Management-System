@@ -1,10 +1,10 @@
 package com.example.taskmanagementsystem.console;
 
-import com.example.taskmanagementsystem.bll.service.TaskService;
-import com.example.taskmanagementsystem.bll.service.UserService;
-import com.example.taskmanagementsystem.dal.exception.*;
-import com.example.taskmanagementsystem.ep.dto.TaskDto;
-import com.example.taskmanagementsystem.ep.dto.UserDto;
+import com.example.taskmanagementsystem.dto.TaskDto;
+import com.example.taskmanagementsystem.dto.UserDto;
+import com.example.taskmanagementsystem.exception.*;
+import com.example.taskmanagementsystem.service.TaskService;
+import com.example.taskmanagementsystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
